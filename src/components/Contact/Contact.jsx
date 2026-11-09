@@ -14,6 +14,7 @@ const initialForm = {
 function Contact() {
   const { t } = useTranslation();
   const [formData, setFormData] = useState(initialForm);
+  const [mobileTab, setMobileTab] = useState("form");
   const [submitted, setSubmitted] = useState(false);
 
   const contactItems = [
@@ -58,8 +59,9 @@ function Contact() {
           <p>{t("contact.description")}</p>
         </div>
 
+        <div className="contact-mobile-tabs"><button type="button" className={mobileTab === "form" ? "selected" : ""} onClick={()=>setMobileTab("form")}>{t("contact.requestTitle")}</button><button type="button" className={mobileTab === "info" ? "selected" : ""} onClick={()=>setMobileTab("info")}>{t("contact.talkToUs")}</button></div>
         <div className="row g-4">
-          <div className="col-lg-5" data-aos="fade-left">
+          <div className={`col-lg-5 contact-info-panel ${mobileTab === "form" ? "hide-small" : ""}`} data-aos="fade-left">
             <div className="contact-info">
               <h3>{t("contact.talkToUs")}</h3>
               <p>{t("contact.infoText")}</p>
@@ -75,7 +77,7 @@ function Contact() {
             </div>
           </div>
 
-          <div className="col-lg-7" data-aos="fade-right">
+          <div className={`col-lg-7 contact-form-panel ${mobileTab === "info" ? "hide-small" : ""}`} data-aos="fade-right">
             <form className="contact-form" onSubmit={submitToWhatsApp}>
               <div className="row g-3">
                 <div className="col-md-6">

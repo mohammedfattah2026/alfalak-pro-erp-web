@@ -34,7 +34,7 @@ function Solutions() {
               <div className="solution-features">
                 {activeSolution.features.map((feature) => <div className="solution-feature" key={feature}><CheckCircle2 size={19} /><span>{feature}</span></div>)}
               </div>
-              <a href="#pricing" className="solution-link">{t("solutions.link")}<span className="directional-arrow">←</span></a>
+              <a href="https://alfalak.alfalaksoft2025.ddns.net:441/SUBSCRIPTION_PLAN_FEATURES" className="solution-link">{t("solutions.link")}<span className="directional-arrow">←</span></a>
             </div>
             <div className="col-lg-6">
               <div className="solution-visual"><div className="visual-window">

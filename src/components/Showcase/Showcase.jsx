@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
 import { CheckCircle2, MousePointerClick } from "lucide-react";
-import salesTouchAr from "../../assets/showcase/sales-touch-ar.webp";
-import salesTouchEn from "../../assets/showcase/sales-touch-en.webp";
+import salesTouchAr from "../../assets/showcase/sales-touch-ar.png";
+import salesTouchEn from "../../assets/showcase/sales-touch-en.png";
 
 function Showcase() {
   const { t, i18n } = useTranslation();

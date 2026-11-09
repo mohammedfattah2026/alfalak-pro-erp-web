@@ -1,19 +1,40 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { Routes, Route, useLocation, Navigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import Contact from "./components/Contact/Contact";
 import Navbar from "./components/Navbar/Navbar";
 import Hero from "./components/Hero/Hero";
-import TrustBar from "./components/TrustBar/TrustBar";
 import Showcase from "./components/Showcase/Showcase";
+
+
 import Solutions from "./components/Solutions/Solutions";
 import Features from "./components/Features/Features";
 import Modules from "./components/Modules/Modules";
-import Pricing from "./components/Pricing/Pricing";
+
 import About from "./components/About/About";
 import FAQ from "./components/FAQ/FAQ";
-import Footer from "./components/Footer/Footer";
+
 import Integrations from "./components/Integrations/Integrations";
 import FloatingWhatsApp from "./components/FloatingWhatsApp/FloatingWhatsApp";
+
+const PLAN_URL = "https://alfalak.alfalaksoft2025.ddns.net:441/SUBSCRIPTION_PLAN_FEATURES";
+
+function PricingRedirect() {
+  useEffect(() => { window.location.replace(PLAN_URL); }, []);
+  return null;
+}
+
+function SystemPage() {
+  const [tab, setTab] = useState("showcase");
+  return <div className="system-page">
+    <div className="system-page-tabs" role="tablist" aria-label="System sections">
+      <button role="tab" aria-selected={tab === "showcase"} className={tab === "showcase" ? "selected" : ""} onClick={() => setTab("showcase")}>صور النظام / Screenshots</button>
+      <button role="tab" aria-selected={tab === "modules"} className={tab === "modules" ? "selected" : ""} onClick={() => setTab("modules")}>وحدات النظام / Modules</button>
+      <button role="tab" aria-selected={tab === "integrations"} className={tab === "integrations" ? "selected" : ""} onClick={() => setTab("integrations")}>التكاملات / Integrations</button>
+    </div>
+    {tab === "showcase" ? <Showcase /> : tab === "modules" ? <Modules /> : <Integrations />}
+  </div>;
+}
 
 function App() {
   const { i18n, t } = useTranslation();
@@ -29,35 +50,27 @@ function App() {
       ?.setAttribute("content", t("meta.description"));
   }, [language, t]);
 
+  const { pathname } = useLocation();
+  useEffect(() => { window.scrollTo(0, 0); }, [pathname]);
+
   return (
     <>
       <Navbar />
 
-      <main>
-        <Hero />
-
-        <TrustBar />
-
-        <Solutions />
-
-        <Showcase />
-
-        <Modules />
-
-        <Features />
-
-        <Integrations />
-
-        <Pricing />
-
-        <About />
-
-        <FAQ />
-
-        <Contact />
+      <main className="site-page-content">
+        <Routes>
+          <Route path="/" element={<Hero />} />
+          <Route path="/solutions" element={<Solutions />} />
+          <Route path="/system" element={<SystemPage />} />
+          <Route path="/features" element={<Features />} />
+          <Route path="/pricing" element={<PricingRedirect />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/faq" element={<FAQ />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
       </main>
 
-      <Footer />
 
       <FloatingWhatsApp />
     </>
